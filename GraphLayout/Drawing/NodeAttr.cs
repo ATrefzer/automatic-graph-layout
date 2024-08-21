@@ -140,5 +140,8 @@ namespace Microsoft.Msagl.Drawing {
             get { return labelWidthToHeightRatio; }
             set { labelWidthToHeightRatio = value; }
         }
+
+        // ATrefzer: Allow to hide the collapse buttons.
+        public bool HideCollapseButton { get; set; } = true;
     }
 }
