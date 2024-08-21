@@ -1,5 +1,4 @@
 ﻿using Microsoft.Msagl.Layout.LargeGraphLayout;
-#if TEST_MSAGL
 using System;
 using System.Linq;
 using System.Collections.Generic;
@@ -990,4 +989,3 @@ namespace Microsoft.Msagl.DebugHelpers.Persistence
     }
 }
 
-#endif

@@ -91,8 +91,14 @@ namespace Microsoft.Msagl.WpfGraphControl {
         void SetupSubgraphDrawing(LayoutAlgorithmSettings settings) {
             if (_subgraph == null) return;
 
-            SetupTopMarginBorder();
-            SetupCollapseSymbol();
+            // ATrefzer: Allow to hide the collapse button.
+            var hide = Node.Attr.HideCollapseButton;
+            if (!hide) {
+                SetupTopMarginBorder();
+                SetupCollapseSymbol();
+            }
+
+
 
             // Fix missing margins around label right after the launch https://github.com/microsoft/automatic-graph-layout/pull/313#issuecomment-1130468914
             var cluster = (Cluster)_subgraph.GeometryObject;
@@ -136,13 +142,16 @@ namespace Microsoft.Msagl.WpfGraphControl {
         }
 
         void SetupCollapseSymbol() {
+
+           
+
             var collapseBorderSize = GetCollapseBorderSymbolSize();
             Debug.Assert(collapseBorderSize > 0);
             _collapseButtonBorder = new Border {
                 Background = Common.BrushFromMsaglColor(_subgraph.CollapseButtonColorInactive),
                 Width = collapseBorderSize,
                 Height = collapseBorderSize,
-                CornerRadius = new CornerRadius(collapseBorderSize/2)
+                CornerRadius = new CornerRadius(collapseBorderSize/2),
             };
 
             Panel.SetZIndex(_collapseButtonBorder, Panel.GetZIndex(BoundaryPath) + 1);
@@ -183,6 +192,7 @@ namespace Microsoft.Msagl.WpfGraphControl {
                 cluster.IsCollapsed = !cluster.IsCollapsed;
                 InvokeIsCollapsedChanged();
             }
+
         }
 
         double GetCollapseBorderSymbolSize() {
@@ -445,24 +455,26 @@ namespace Microsoft.Msagl.WpfGraphControl {
 
             Common.PositionFrameworkElement(FrameworkElementOfNodeForLabel, GetLabelPosition(Node), 1);
 
-
             SetFillAndStroke();
             if (_subgraph == null) return;
-            PositionTopMarginBorder((Cluster) _subgraph.GeometryNode);
-            double collapseBorderSize = GetCollapseBorderSymbolSize();
-            var collapseButtonCenter = GetCollapseButtonCenter(collapseBorderSize);
-            Common.PositionFrameworkElement(_collapseButtonBorder, collapseButtonCenter, 1);
-            double w = collapseBorderSize*0.4;
-            _collapseSymbolPath.Data = CreateCollapseSymbolPath(collapseButtonCenter + new Point(0, -w/2), w);
-            _collapseSymbolPath.RenderTransform = ((Cluster) _subgraph.GeometryNode).IsCollapsed
-                ? new RotateTransform(180, collapseButtonCenter.X,
-                    collapseButtonCenter.Y)
-                : null;
 
-            _topMarginRect.Visibility =
-                _collapseSymbolPath.Visibility =
-                    _collapseButtonBorder.Visibility = Visibility.Visible;
+            // ATrefzer: If we hide the collapse buttons we are done here.
+            if (_collapseButtonBorder != null) {
+                PositionTopMarginBorder((Cluster)_subgraph.GeometryNode);
+                double collapseBorderSize = GetCollapseBorderSymbolSize();
+                var collapseButtonCenter = GetCollapseButtonCenter(collapseBorderSize);
+                Common.PositionFrameworkElement(_collapseButtonBorder, collapseButtonCenter, 1);
+                double w = collapseBorderSize * 0.4;
+                _collapseSymbolPath.Data = CreateCollapseSymbolPath(collapseButtonCenter + new Point(0, -w / 2), w);
+                _collapseSymbolPath.RenderTransform = ((Cluster)_subgraph.GeometryNode).IsCollapsed
+                    ? new RotateTransform(180, collapseButtonCenter.X,
+                        collapseButtonCenter.Y)
+                    : null;
 
+                _topMarginRect.Visibility =
+                    _collapseSymbolPath.Visibility =
+                        _collapseButtonBorder.Visibility = Visibility.Visible;
+            }
         }
 
         Point GetLabelPosition(Node node)

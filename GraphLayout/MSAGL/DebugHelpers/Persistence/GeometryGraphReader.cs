@@ -1,6 +1,5 @@
 ﻿using Microsoft.Msagl.Layout.LargeGraphLayout;
 using Microsoft.Msagl.Prototype.Ranking;
-#if TEST_MSAGL
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -1582,4 +1581,3 @@ namespace Microsoft.Msagl.DebugHelpers.Persistence
     }
 }
 
-#endif
