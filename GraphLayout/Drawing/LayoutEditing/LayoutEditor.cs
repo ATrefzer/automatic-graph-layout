@@ -626,17 +626,26 @@ namespace Microsoft.Msagl.Drawing {
 
         
         void ViewerMouseMove(object sender, MsaglMouseEventArgs e) {
-            if (viewer.LayoutEditingEnabled) {                 
-                if (e.LeftButtonIsPressed) {
-                    if (ActiveDraggedObject != null || PolylineVertex != null)
-                        DragSomeObjects(e);
+
+            try {
+                if (viewer.LayoutEditingEnabled) {
+                    if (e.LeftButtonIsPressed) {
+                        if (ActiveDraggedObject != null || PolylineVertex != null)
+                            DragSomeObjects(e);
+                        else if (InsertingEdge)
+                            MouseMoveWhenInsertingEdgeAndPressingLeftButton(e);
+                        else
+                            MouseMoveLiveSelectObjectsForDragging(e);
+                    }
                     else if (InsertingEdge)
-                        MouseMoveWhenInsertingEdgeAndPressingLeftButton(e);
-                    else
-                        MouseMoveLiveSelectObjectsForDragging(e);
-                } else if(InsertingEdge)
-                    HandleMouseMoveWhenInsertingEdgeAndNotPressingLeftButton(e);
-            }            
+                        HandleMouseMoveWhenInsertingEdgeAndNotPressingLeftButton(e);
+                }
+            }
+            catch (Exception ex) {
+
+                // ATrefzer: Sometimes crashes the app. Ignore this error for now.
+                Trace.WriteLine(ex.ToString());
+            }
         }
 
         
