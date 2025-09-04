@@ -29,6 +29,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 ﻿using System.Linq;
 using System.Windows;
 ﻿using System.Windows.Controls;
@@ -763,7 +764,11 @@ namespace Microsoft.Msagl.WpfGraphControl {
                     RunLayoutInUIThread();
             }
             catch (Exception e) {
-                MessageBox.Show(e.ToString());
+
+                // ATrefzer: Forward exception to implement a fallback with different
+                // layout settings
+                Trace.WriteLine(e.ToString());
+                throw;
             }
         }
 
