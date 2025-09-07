@@ -321,8 +321,9 @@ namespace Microsoft.Msagl.WpfGraphControl {
 
             if (e.Handled) return;
 
-
-            if (Mouse.LeftButton == MouseButtonState.Pressed && (!LayoutEditingEnabled || _objectUnderMouseCursor == null)) {
+            // ATrefzer: Avoid unnecessary jumping with unintended panning
+            if (Mouse.LeftButton == MouseButtonState.Pressed &&
+                IsShiftPressed() && (!LayoutEditingEnabled || _objectUnderMouseCursor == null)) {
                 if (!_mouseDownPositionInGraph_initialized) {
                     _mouseDownPositionInGraph = Common.MsaglPoint(e.GetPosition(_graphCanvas));
                     _mouseDownPositionInGraph_initialized = true;
@@ -337,6 +338,10 @@ namespace Microsoft.Msagl.WpfGraphControl {
                 ObjectUnderMouseCursor = null;
                 UpdateWithWpfHitObjectUnderMouseOnLocation(mouseLocation, MyHitTestResultCallback);
             }
+        }
+
+        private static bool IsShiftPressed() {
+            return Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift);
         }
 
         void UpdateWithWpfHitObjectUnderMouseOnLocation(WpfPoint pt, HitTestResultCallback hitTestResultCallback) {
