@@ -54,7 +54,8 @@ using Rectangle = Microsoft.Msagl.Core.Geometry.Rectangle;
 using Size = System.Windows.Size;
 using WpfPoint = System.Windows.Point;
 using System.Windows.Shapes;
-    using Edge = Microsoft.Msagl.Core.Layout.Edge;
+using WpfGraphControl;
+using Edge = Microsoft.Msagl.Core.Layout.Edge;
     using Ellipse = System.Windows.Shapes.Ellipse;
     using LineSegment = Microsoft.Msagl.Core.Geometry.Curves.LineSegment;
 
@@ -88,7 +89,7 @@ namespace Microsoft.Msagl.WpfGraphControl {
         /// </summary>
         public bool RunLayoutAsync;
 
-        readonly Canvas _graphCanvas = new Canvas();
+        readonly PerformanceOptimizedCanvas _graphCanvas = new PerformanceOptimizedCanvas();
         Graph _drawingGraph;
 
         readonly Dictionary<DrawingObject, FrameworkElement> drawingObjectsToFrameworkElements =
@@ -123,7 +124,7 @@ namespace Microsoft.Msagl.WpfGraphControl {
         /// <summary>
         /// the canvas to draw the graph
         /// </summary>
-        public Canvas GraphCanvas {
+        public PerformanceOptimizedCanvas GraphCanvas {
             get { return _graphCanvas; }
         }
 
@@ -867,8 +868,8 @@ namespace Microsoft.Msagl.WpfGraphControl {
 
         void ClearGraphCanvasChildren() {
             if (_graphCanvas.Dispatcher.CheckAccess())
-                _graphCanvas.Children.Clear();
-            else _graphCanvas.Dispatcher.Invoke(() => _graphCanvas.Children.Clear());
+                _graphCanvas.ClearChildrenFast();
+            else _graphCanvas.Dispatcher.Invoke(() => _graphCanvas.ClearChildrenFast());
         }
 
         /// <summary>
@@ -988,6 +989,8 @@ namespace Microsoft.Msagl.WpfGraphControl {
         }
 
         void PushDataFromLayoutGraphToFrameworkElements() {
+            
+            GraphCanvas.BeginBatchOperation();
             CreateRectToFillCanvas();
             CreateAndPositionGraphBackgroundRectangle();
             CreateVNodes();
@@ -1001,6 +1004,8 @@ namespace Microsoft.Msagl.WpfGraphControl {
                 null);
 
             CreateEdges();
+
+            GraphCanvas.EndBatchOperation();
         }
 
 
