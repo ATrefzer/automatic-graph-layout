@@ -34,16 +34,21 @@ public class PerformanceOptimizedCanvas : Canvas {
 
     public void EndBatchOperation() {
         isZStateComputationDisabled = false;
-        RecomputeZState();
+        InvalidateAll();
     }
 
-    public void RecomputeZState() {
-        InvokePrivateMethodViaReflection("RecomputeZState");
+    public void InvalidateAll() {
+
+        // Invalidating the Z state is enough.
+        //InvokePrivateMethodViaReflection("RecomputeZState");
+
         InvokePrivateMethodViaReflection("InvalidateZState");
         InvalidateMeasure();
         InvalidateArrange();
-        InvalidateVisual();
-        UpdateLayout();
+        //InvalidateVisual();
+
+        // Let WPF decide when to update the layout
+        //UpdateLayout();
     }
 
     public void ClearChildrenFast() {
