@@ -818,9 +818,14 @@ namespace Microsoft.Msagl.Drawing {
             if (!Dragging) return;
             var currentDragPoint = viewer.ScreenToSource(e);
             geomGraphEditor.Drag(currentDragPoint - _lastDragPoint, GetDraggingMode(), _lastDragPoint);
-            foreach (var affectedObject in CurrentUndoAction.AffectedObjects) {
-                viewer.Invalidate(affectedObject);
+
+            // ATrefzer: Swallow crash when CurrentAction is null
+            if (CurrentUndoAction != null) {
+                foreach (var affectedObject in CurrentUndoAction.AffectedObjects) {
+                    viewer.Invalidate(affectedObject);
+                }
             }
+
             if (geomGraphEditor.GraphBoundingBoxGetsExtended)
                 viewer.Invalidate();       
             e.Handled = true;
