@@ -299,7 +299,8 @@ namespace Microsoft.Msagl.GraphmapsWpfControl {
             if (LgNodeInfo != null && LgNodeInfo.PartiteSet == 1)
                 BoundaryPath.StrokeThickness = (PathStrokeThickness*1.5);
 
-
+            // Apply border styles (Dashed, Dotted, etc.)
+            ApplyBorderStyles();
 
             var textBlock = FrameworkElementOfNodeForLabel as TextBlock;
             if (textBlock != null)
@@ -311,6 +312,17 @@ namespace Microsoft.Msagl.GraphmapsWpfControl {
 
                 // Apply font style
                 LabelProperties.ApplyFontStyle(textBlock, Node.Label.FontStyle);
+            }
+        }
+
+        void ApplyBorderStyles() {
+            foreach (var style in Node.Attr.Styles) {
+                if (style == Drawing.Style.Dotted) {
+                    BoundaryPath.StrokeDashArray = new DoubleCollection { 1, 1 };
+                }
+                else if (style == Drawing.Style.Dashed) {
+                    BoundaryPath.StrokeDashArray = new DoubleCollection { 5, 5 };
+                }
             }
         }
 

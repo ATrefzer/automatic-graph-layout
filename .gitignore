@@ -164,3 +164,4 @@ $RECYCLE.BIN/
 /node_modules
 /package-lock.json
 /.claude/settings.local.json
+/GraphLayout/dependencies.json

@@ -268,6 +268,9 @@ namespace Microsoft.Msagl.Viewers.Uwp {
             SetBoundaryFill();
             BoundaryPath.StrokeThickness = PathStrokeThickness;
 
+            // Apply border styles (Dashed, Dotted, etc.)
+            ApplyBorderStyles();
+
             var textBlock = FrameworkElementOfNodeForLabel as TextBlock;
             if (textBlock != null) {
                 var col = Node.Label.FontColor;
@@ -276,6 +279,17 @@ namespace Microsoft.Msagl.Viewers.Uwp {
 
                 // Apply font style
                 LabelProperties.ApplyFontStyle(textBlock, Node.Label.FontStyle);
+            }
+        }
+
+        void ApplyBorderStyles() {
+            foreach (var style in Node.Attr.Styles) {
+                if (style == Drawing.Style.Dotted) {
+                    BoundaryPath.StrokeDashArray = new DoubleCollection { 1, 1 };
+                }
+                else if (style == Drawing.Style.Dashed) {
+                    BoundaryPath.StrokeDashArray = new DoubleCollection { 5, 5 };
+                }
             }
         }
 

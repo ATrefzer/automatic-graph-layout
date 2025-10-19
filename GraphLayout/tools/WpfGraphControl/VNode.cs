@@ -281,6 +281,9 @@ namespace Microsoft.Msagl.WpfGraphControl {
             SetBoundaryFill();
             BoundaryPath.StrokeThickness = PathStrokeThickness;
 
+            // Apply border styles (Dashed, Dotted, etc.)
+            ApplyBorderStyles();
+
             var textBlock = FrameworkElementOfNodeForLabel as TextBlock;
             if (textBlock != null) {
                 var col = Node.Label.FontColor;
@@ -291,7 +294,16 @@ namespace Microsoft.Msagl.WpfGraphControl {
             }
         }
 
-  
+        void ApplyBorderStyles() {
+            foreach (var style in Node.Attr.Styles) {
+                if (style == Drawing.Style.Dotted) {
+                    BoundaryPath.StrokeDashArray = new DoubleCollection { 1, 1 };
+                } else if (style == Drawing.Style.Dashed) {
+                    BoundaryPath.StrokeDashArray = new DoubleCollection { 5, 5 };
+                }
+            }
+        }
+
 
         void SetBoundaryFill() {
             BoundaryPath.Fill = Common.BrushFromMsaglColor(Node.Attr.FillColor);
