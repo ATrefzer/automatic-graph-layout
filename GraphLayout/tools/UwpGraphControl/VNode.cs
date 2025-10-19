@@ -273,6 +273,9 @@ namespace Microsoft.Msagl.Viewers.Uwp {
                 var col = Node.Label.FontColor;
                 textBlock.Foreground =
                     Common.BrushFromMsaglColor(new Drawing.Color(GetTransparency(col.A), col.R, col.G, col.B));
+
+                // Apply font style
+                LabelProperties.ApplyFontStyle(textBlock, Node.Label.FontStyle);
             }
         }
 

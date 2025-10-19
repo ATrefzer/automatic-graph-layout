@@ -14,10 +14,9 @@
 
   <ItemGroup>
     <Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
-    <ProjectReference Include="../../MSAGL/AutomaticGraphLayout.csproj"/>
-    <ProjectReference Include="../../Drawing/AutomaticGraphLayout.Drawing.csproj"/>
-    <ProjectReference Include="../../tools/GraphViewerGDI/GraphViewerGDI.csproj"/>
-    <ProjectReference Include="../../tools/Dot2Graph/Dot2graph.csproj"/>
+    <ProjectReference Include="../../MSAGL/AutomaticGraphLayout.csproj" />
+    <ProjectReference Include="../../Drawing/AutomaticGraphLayout.Drawing.csproj" />
+    <ProjectReference Include="../../tools/GraphViewerGDI/GraphViewerGDI.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\MsaglGeometryGraphs\graph0.msagl.geom">

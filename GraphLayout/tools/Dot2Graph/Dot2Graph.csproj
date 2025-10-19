@@ -38,7 +38,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Drawing\AutomaticGraphLayout.Drawing.csproj" />
     <ProjectReference Include="..\..\MSAGL\AutomaticGraphLayout.csproj" />
-    <ProjectReference Include="..\QUT.ShiftReduceParser\QUT.ShiftReduceParser.csproj" />
   </ItemGroup>
 
 </Project>

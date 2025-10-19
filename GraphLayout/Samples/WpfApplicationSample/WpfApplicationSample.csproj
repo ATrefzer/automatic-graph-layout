@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
-    <TargetFrameworks>net472;net6.0-windows</TargetFrameworks>
+    <TargetFrameworks>net8.0-windows</TargetFrameworks>
     <OutputType>WinExe</OutputType>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <UseWPF>true</UseWPF>
@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Drawing\AutomaticGraphLayout.Drawing.csproj" />
     <ProjectReference Include="..\..\MSAGL\AutomaticGraphLayout.csproj" />
+    <ProjectReference Include="..\..\Tools\GraphViewerGDI\GraphViewerGDI.csproj" />
     <ProjectReference Include="..\..\tools\WpfGraphControl\WpfGraphControl.csproj" />
   </ItemGroup>
   <ItemGroup>

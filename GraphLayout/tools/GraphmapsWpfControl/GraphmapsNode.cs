@@ -296,10 +296,10 @@ namespace Microsoft.Msagl.GraphmapsWpfControl {
             //BoundaryPath.StrokeThickness = PathStrokeThickness;
             //jyoti changed strokethickness
             BoundaryPath.StrokeThickness = PathStrokeThickness / 2;
-            if (LgNodeInfo != null && LgNodeInfo.PartiteSet == 1)                
+            if (LgNodeInfo != null && LgNodeInfo.PartiteSet == 1)
                 BoundaryPath.StrokeThickness = (PathStrokeThickness*1.5);
 
-            
+
 
             var textBlock = FrameworkElementOfNodeForLabel as TextBlock;
             if (textBlock != null)
@@ -308,9 +308,10 @@ namespace Microsoft.Msagl.GraphmapsWpfControl {
                 //jyoti changed node color
                 //var col = Node.Label.FontColor;
                 //textBlock.Foreground = Common.BrushFromMsaglColor(new Drawing.Color(col.A, col.R, col.G, col.B));
-            }
-           
 
+                // Apply font style
+                LabelProperties.ApplyFontStyle(textBlock, Node.Label.FontStyle);
+            }
         }
 
 

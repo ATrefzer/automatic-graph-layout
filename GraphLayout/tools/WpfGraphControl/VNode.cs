@@ -9,6 +9,7 @@ using System.Windows.Shapes;
 using Microsoft.Msagl.Core.Geometry.Curves;
 using Microsoft.Msagl.Core.Layout;
 using Microsoft.Msagl.Drawing;
+using WpfGraphControl;
 using Edge = Microsoft.Msagl.Drawing.Edge;
 using Ellipse = Microsoft.Msagl.Core.Geometry.Curves.Ellipse;
 using LineSegment = Microsoft.Msagl.Core.Geometry.Curves.LineSegment;
@@ -285,8 +286,12 @@ namespace Microsoft.Msagl.WpfGraphControl {
                 var col = Node.Label.FontColor;
                 textBlock.Foreground =
                     Common.BrushFromMsaglColor(new Drawing.Color(GetTransparency(col.A), col.R, col.G, col.B));
+
+                LabelProperties.ApplyFontStyle(textBlock, Node.Label.FontStyle);
             }
         }
+
+  
 
         void SetBoundaryFill() {
             BoundaryPath.Fill = Common.BrushFromMsaglColor(Node.Attr.FillColor);

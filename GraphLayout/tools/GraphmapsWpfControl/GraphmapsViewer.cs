@@ -2949,6 +2949,10 @@ namespace Microsoft.Msagl.GraphmapsWpfControl
                 Foreground = Common.BrushFromMsaglColor(drawingLabel.FontColor)
             };
 
+            // Apply font style (Bold, Italic, etc.)
+            LabelProperties.ApplyFontStyle(textBlock, drawingLabel.FontStyle);
+
+
             textBlock.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
             textBlock.Width = textBlock.DesiredSize.Width;
             textBlock.Height = textBlock.DesiredSize.Height;

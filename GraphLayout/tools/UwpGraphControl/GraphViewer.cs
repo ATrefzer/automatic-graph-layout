@@ -1265,12 +1265,14 @@ namespace Microsoft.Msagl.Viewers.Uwp {
                 Foreground = Common.BrushFromMsaglColor(drawingLabel.FontColor)
             };
 
+            // Apply font style (Bold, Italic, etc.)
+            LabelProperties.ApplyFontStyle(textBlock, drawingLabel.FontStyle);
+
             textBlock.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
             textBlock.Width = textBlock.DesiredSize.Width;
             textBlock.Height = textBlock.DesiredSize.Height;
             return textBlock;
         }
-
 
         FrameworkElement CreateDefaultFrameworkElementForDrawingObject(DrawingObject drawingObject) {
             lock (this) {
